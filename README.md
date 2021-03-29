@@ -1,7 +1,6 @@
 # mastery-cardealership
 Final Project from Software Guild boot camp
-Requirements: 
-
+ 
 Car Dealership website with user role based authentication. Paypal & Google Recaptcha integration. 
 
 > Requirements: https://github.com/spitum/mastery-cardealership/blob/main/Car%20Dealership%20Requirements.pdf
