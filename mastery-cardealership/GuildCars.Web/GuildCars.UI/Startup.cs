@@ -25,8 +25,8 @@ namespace GuildCars.UI
 
             //Here we create a Admin super user who will maintain the website         
             //var user = new ApplicationUser();
-            //user.UserName = "spitum";
-            //user.Email = "spitum@gmail.com";
+            //user.UserName = "test";
+            //user.Email = "test2@test.com";
 
             //string userPWD = "test123!";
 
