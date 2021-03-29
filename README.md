@@ -14,4 +14,6 @@ Within GuildCars.UI project - update connection string to point to database wher
 > Within GuildCar.UI/GoogleCaptcha/SiteSettings.cs - Add secret/site key values.
 
 
+**For Paypal setup:**
+> Within GuildCar.UI/webcinfig.cs - Add values for paypal/settings/clientid and paypal/settings/clientSecret 
 
