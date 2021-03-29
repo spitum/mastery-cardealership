@@ -10,7 +10,7 @@ Run scripts in DBScripts in following order: database > tables > sprocs > DBRese
 
 Within GuildCars.UI project - update connection string to point to database where above DBScripts were run. 
 
-*For Google Recaptcha setup:
+# For Google Recaptcha setup:
     Within GuildCar.UI/GoogleCaptcha/SiteSettings.cs - Add secret/site key values.
 
 
