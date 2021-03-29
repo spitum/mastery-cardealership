@@ -3,7 +3,7 @@ Final Project from Software Guild boot camp
 
 Car Dealership website with user role based authentication. Paypal & Google Recaptcha integration. 
 
-Wireframes: 
+Wireframes: https://github.com/spitum/mastery-cardealership/blob/main/Car-Dealership-Wireframes.pdf
 
 # Setup 
 Run scripts in DBScripts in following order: database > tables > sprocs > DBReset
