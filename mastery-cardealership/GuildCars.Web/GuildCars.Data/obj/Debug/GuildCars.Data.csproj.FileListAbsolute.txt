@@ -1,0 +1,12 @@
+C:\Users\spitu\Repos\TSG_DotNet\online-net-spitum\Summatives\mastery-cardealership\GuildCars.Web\GuildCars.Data\bin\Debug\GuildCars.Data.dll
+C:\Users\spitu\Repos\TSG_DotNet\online-net-spitum\Summatives\mastery-cardealership\GuildCars.Web\GuildCars.Data\bin\Debug\GuildCars.Data.pdb
+C:\Users\spitu\Repos\TSG_DotNet\online-net-spitum\Summatives\mastery-cardealership\GuildCars.Web\GuildCars.Data\bin\Debug\Dapper.dll
+C:\Users\spitu\Repos\TSG_DotNet\online-net-spitum\Summatives\mastery-cardealership\GuildCars.Web\GuildCars.Data\bin\Debug\GuildCars.Models.dll
+C:\Users\spitu\Repos\TSG_DotNet\online-net-spitum\Summatives\mastery-cardealership\GuildCars.Web\GuildCars.Data\bin\Debug\GuildCars.Models.pdb
+C:\Users\spitu\Repos\TSG_DotNet\online-net-spitum\Summatives\mastery-cardealership\GuildCars.Web\GuildCars.Data\bin\Debug\Dapper.xml
+C:\Users\spitu\Repos\TSG_DotNet\online-net-spitum\Summatives\mastery-cardealership\GuildCars.Web\GuildCars.Data\obj\Debug\GuildCars.Data.csprojAssemblyReference.cache
+C:\Users\spitu\Repos\TSG_DotNet\online-net-spitum\Summatives\mastery-cardealership\GuildCars.Web\GuildCars.Data\obj\Debug\GuildCars.Data.csproj.CopyComplete
+C:\Users\spitu\Repos\TSG_DotNet\online-net-spitum\Summatives\mastery-cardealership\GuildCars.Web\GuildCars.Data\obj\Debug\GuildCars.Data.dll
+C:\Users\spitu\Repos\TSG_DotNet\online-net-spitum\Summatives\mastery-cardealership\GuildCars.Web\GuildCars.Data\obj\Debug\GuildCars.Data.pdb
+C:\Users\spitu\Repos\TSG_DotNet\online-net-spitum\Summatives\mastery-cardealership\GuildCars.Web\GuildCars.Data\bin\Debug\Bogus.dll
+C:\Users\spitu\Repos\TSG_DotNet\online-net-spitum\Summatives\mastery-cardealership\GuildCars.Web\GuildCars.Data\bin\Debug\Bogus.xml

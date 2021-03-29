@@ -1,0 +1,190 @@
+﻿@model GuildCars.Models.Tables.Special
+@{
+    ViewBag.Title = "AddSpecial";
+}
+
+<script src="~/Scripts/jquery-3.4.1.js"></script>
+<script src="~/Scripts/bootstrap.js"></script>
+<style>
+    /*.container {
+        display: flex;
+        align-items: flex-start;
+        justify-content: start
+    }*/
+
+    img {
+        max-width: 100%;
+        float: left;
+    }
+
+    /*.text {
+        padding-top: 20px;
+    }*/
+
+    .specialRow {
+        padding-top: 20px;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        width: 100%;
+        margin: 5px 5px;
+        border: 3px solid gray;
+    }
+
+    .special {
+        padding-top: 20px;
+        padding-left: 0px;
+    }
+
+    #deleteDiv {
+        padding: 0px;
+    }
+
+    #deletebutton {
+        padding: 0px;
+    }
+</style>
+
+<ul class="list group" id="errorMessages"></ul>
+
+<div class="container">
+    <h2>Specials</h2>
+    @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+    @using (Html.BeginForm("AddSpecial", "Admin", FormMethod.Post, new { enctype = "multipart/form-data", id = "addSpecial" }))
+    {
+        @Html.HiddenFor(m => m.SpecialID)
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                <label for="Title">Title</label>
+                @Html.TextBoxFor(m => m.SpecialTitle, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                <label for="Description">Description</label>
+                @Html.TextAreaFor(m => m.SpecialDescription, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group row">
+            <div id="submitButton" class="col-md-2" style="padding-left:10px;">
+                <input type="submit" value="Save" class="btn btn-success" />
+            </div>
+        </div>
+    }
+</div>
+
+<div class="special">
+    <div class="col-md-6" id="specialResults">
+    </div>
+</div>
+
+<div class="modal" tabindex="-1" role="dialog" id="delete-special-popup">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Confirmation</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete this special?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="delete-special-button">Yes</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            GetSpecials();
+            formValidate();
+            $('#addSpecial').submit(function (e) {
+                GetSpecials();
+            });
+        }
+
+        );
+
+        function GetSpecials() {
+            var imagePath = '@Url.Content("~/Images/")';
+            $.ajax({
+                type: 'GET',
+                url: 'https://localhost:44375/api/admin/specials',
+                success: function (results) {
+                    //clear the search results
+                    $('#specialResults').empty();
+                    //add search results
+                    $.each(results, function (index, model) {
+                        var html = '<div class="container specialRow">' +
+                            '<div class="image">' +
+                            '<img src="' + imagePath + "money_14.svg" + '" width="70" height="70" alt="" >' +
+                            '</div>' +
+                            '<div class="row col-md-8">' +
+                            '<p class="SpecialTitle"><strong>' + model.SpecialTitle + '</strong></p>' +
+                            '<p class="SpecialDescription">' + model.SpecialDescription + '</p>' +
+                            '</div>' +
+                            '<div class="row col-md-8 ml-auto" id="deleteDiv">' +
+                            '<a href="#delete-special-popup" class="col-md-2 ml-auto btn-sm btn-outline-danger ml-auto" id="deletebutton" onclick = "deleteSpecial(' + model.SpecialID + ')">Delete</a>' +
+                            '</div>' ;
+
+                             $('#specialResults').append(html);
+                    });
+
+                },
+                error: function () {
+                    alert("Error performing search, try again later");
+                }
+            });
+        }
+
+        function formValid() {
+            if ($('#addSpecial').valid()) {
+                alert("Special committed succesfully!");
+            }
+        }
+
+        function formValidate() {
+            $('#addSpecial').validate({
+                rules: {
+                    'SpecialTitle': {
+                        required: true
+                    },
+                    'SpecialDescription': {
+                        required: true
+                    }
+                }
+            });
+            }
+
+     function deleteSpecial(id) {
+
+    $('#delete-special-popup').modal('show');
+
+    $('#delete-special-button').on('click', function (event) {
+
+        $('#delete-special-popup').modal('hide');
+
+        $.ajax({
+            type: 'DELETE',
+            url: 'https://localhost:44375/api/admin/specials/' + id,
+            success: function () {
+                GetSpecials();
+            },
+            error: function () {
+                $('#errorMessages').append($('<li>')
+                    .attr({ class: 'list-group-item list-group-item-danger' })
+                    .text('Error calling web service. Please try again later.'));
+            }
+        });
+
+        });
+    }
+
+    </script>
+
+}

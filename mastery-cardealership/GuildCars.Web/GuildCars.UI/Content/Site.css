@@ -1,0 +1,116 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+.carousel-item {
+    height: 100vh;
+    padding-top: 20px;
+    padding-top: 10px;
+    min-height: 75px;
+    max-height: 75px;
+    background: no-repeat center center scroll;
+    background-size: cover;
+    text-align: center;
+}
+
+#indexcarousel {
+    margin-top: 20px;
+}
+
+.ui-datepicker-calendar {
+    display: none;
+}
+
+#quickSearch {
+    margin-right: 75px;
+}
+
+
+#searchResults {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    flex: 100%;
+}
+
+.item {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+    margin: 5px 5px;
+    border: 3px solid gray;
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+    flex-basis: 100%;
+    flex: 1;
+}
+
+.item-text{
+    margin-top: 30px;
+}
+
+.item-image {
+    margin-left: 10px;
+}
+
+.item-details {
+    text-decoration: none;
+    display: inline-block;
+    width: 85px;
+    height: 45px;
+    background: #28a745;
+    padding: 10px;
+    text-align: center;
+    border-radius: 5px;
+}
+
+.contact-us {
+    text-decoration: none;
+    display: inline-block;
+    width: 105px;
+    height: 45px;
+    background: #28a745;
+    padding: 10px;
+    text-align: center;
+    border-radius: 5px;
+    margin-left: 850px;
+    float: right;
+}
+
+.detail-link:link, .detail-link:visited {
+    color: #ffff;
+}
+
+.detail-link:hover, .detail-link:active {
+    color: blue;
+}
+
+.row-cols-2 {
+    margin-left: 285px;
+    margin-bottom: 0px;
+}

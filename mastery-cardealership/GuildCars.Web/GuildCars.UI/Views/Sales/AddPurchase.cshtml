@@ -1,0 +1,182 @@
+﻿@model GuildCars.UI.Models.PurchaseViewModels
+
+@{
+    ViewBag.Title = "AddPurchase";
+}
+
+<h2>Purchase Vehicle</h2>
+<div class="container ">
+    <div class="row item hide" style="display: none" id="vehicleDetails">
+        <div class="column item-image">
+            <span class="recentListing"><strong>@Model.vehicle.Year @Model.vehicle.MakeName @Model.vehicle.ModelName </strong></span>
+            <p class="recentListing"><img style="width:166px;height:110px;" src="@Url.Content("~/Images/" + Model.vehicle.ImageFileName)" /></p>
+
+        </div>
+        <div class="column item-text">
+            <p class="item-description">Body Style: @Model.vehicle.BodyStyleName </p>
+            <p class="item-description">Trans: @Model.vehicle.TransmissionName </p>
+            <p class="item-description">Color: @Model.vehicle.ColorName</p>
+        </div>
+        <div class="column item-text">
+            <p class="item-description">Interior:  @Model.vehicle.InteriorColorName</p>
+            <p class="item-description">Mileage: @Model.vehicle.Mileage</p>
+            <p class="item-description">VIN #: @Model.vehicle.VINNumber </p>
+
+        </div>
+        <div class="column item-text">
+            @Html.HiddenFor(m => m.vehicle.SalePrice)
+            @Html.HiddenFor(m => m.vehicle.MSRP)
+            <p class="item-description money">Sale Price:  @Model.vehicle.SalePrice.Value.ToString("c")</p>
+            <p class="item-description money">MSRP:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@Model.vehicle.MSRP.Value.ToString("c")</p>
+        </div>
+        <div class="row item-text">
+            <div class="row-cols-2">
+                <p class="item-description-text"><strong>Description:</strong> @Model.vehicle.Description  </p>
+            </div>
+        </div>
+    </div>
+</div>
+<hr />
+
+<h2>Sales Information</h2>
+@Html.ValidationSummary(false, "", new { @class = "text-danger" })
+
+@using (Html.BeginForm("AddPurchase", "Sales", FormMethod.Post, new { enctype = "multipart/form-data", id = "formAddPurchase" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(m => m.purchase.Purchase.VehicleID)
+    <div class="form-row">
+        <div class="form-group col-md-4">
+            <label>Name</label>
+            @Html.TextBoxFor(m => m.purchase.Purchase.Name, new { @class = "form-control" })
+        </div>
+        <div class="form-group col-md-4 ml-0">
+            <label>Phone</label>
+            @Html.TextBoxFor(m => m.purchase.Purchase.PhoneNumber, new { @class = "form-control required-group" })
+        </div>
+    </div>
+    <div class="form-group">
+        <label>Email</label>
+        @Html.TextBoxFor(m => m.purchase.Purchase.EmailAddress, new { @class = "form-control required-group" })
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-4">
+            <label for="StreetAddress1">Street 1</label>
+            @Html.TextBoxFor(m => m.purchase.Purchase.StreetAddress1, new { @class = "form-control" })
+        </div>
+        <div class="form-group col-md-4">
+            <label for="StreetAddress2">Street 2</label>
+            @Html.TextBoxFor(m => m.purchase.Purchase.StreetAddress2, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-4">
+            <label for="City">City</label>
+            @Html.TextBoxFor(m => m.purchase.Purchase.City, new { @class = "form-control" })
+        </div>
+        <div class="form-group col-md-4">
+            <label for="State">State</label>
+            @Html.DropDownListFor(m => m.purchase.Purchase.StateID, Model.purchase.States, new { @class = "form-control" })
+        </div>
+        <div class="form-group col-md-2">
+            <label for="ZipCode">Zip Code</label>
+            @Html.TextBoxFor(m => m.purchase.Purchase.ZipCode, new { @class = "form-control" })
+        </div>
+    </div>
+    <hr />
+    <div class="form-row">
+        <div class="form-group col-md-4">
+            <label for="PurchasePrice">Purchase Price</label>
+            @Html.TextBoxFor(m => m.purchase.Purchase.PurchasePrice, new { @class = "form-control" })
+        </div>
+        <div class="form-group col-md-4">
+            <label for="PurchaseType">Purchase Type</label>
+            @Html.DropDownListFor(m => m.purchase.Purchase.PurchaseTypeID, Model.purchase.PurchaseTypes, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group row">
+        <div id="submitButton" class="col-md-2" style="padding-left:0px;">
+            <input type="submit" value="Submit" onclick="formValid()" class="btn btn-success" />
+        </div>
+    </div>
+}
+
+
+
+@section scripts{
+    <script>
+        var SalePrice = $("#vehicle_SalePrice").val() * .95;
+        var MSRP = $("#vehicle_MSRP").val();
+
+        $(document).ready(function () {
+
+            $('#vehicleDetails').show();
+            $('#submitButton').show();
+            purchaseValidate();
+
+            $.validator.addMethod('minStrict', function (value, el, param) {
+                return value > param;
+            }, "Purchase Price cannot be less than: " + SalePrice + ".");
+
+            $.validator.addMethod('maxStrict', function (value, el, param) {
+                return value < param;
+            }, "Purchase Price cannot be more than: " + MSRP + ".");
+        });
+
+
+
+
+        function purchaseValidate() {
+            $('#formAddPurchase').validate({
+                rules: {
+                    'purchase.Purchase.Name': {
+                        required: true,
+                        minlength: 2
+                    },
+                    'purchase.Purchase.StreetAddress1': {
+                        required: true
+                    },
+                    'purchase.Purchase.City': {
+                        required: true
+                    },
+                    'purchase.Purchase.EmailAddress': {
+                        require_from_group: [1, '.required-group'],
+                        email: true
+                    },
+                    'purchase.Purchase.PhoneNumber': {
+                        require_from_group: [1, '.required-group'],
+                        number: true
+                    },
+                    'purchase.Purchase.ZipCode': {
+                        required: true,
+                        number: true,
+                        minlength: 5,
+                        maxlength: 5
+                    },
+                    'purchase.Purchase.PurchasePrice': {
+                        required: true,
+                        number: true,
+                        minStrict: SalePrice,
+                        maxStrict: MSRP
+                    }
+                }
+            });
+
+        }
+
+
+
+        function formValid() {
+            if ($('#formAddPurchase').valid()) {
+                alert("Purchase added succesfully!");
+            }
+        }
+
+
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+}
+
+
+
+

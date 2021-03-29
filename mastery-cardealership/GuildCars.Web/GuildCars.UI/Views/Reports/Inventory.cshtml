@@ -1,0 +1,120 @@
+﻿
+@{
+    ViewBag.Title = "Inventory";
+}
+
+<h2 style="margin-top:10px;">Inventory Report </h2>
+
+<h4>New Vehicles</h4>
+<table class="table table-striped col-md-4">
+    <thead>
+        <tr>
+            <th>
+                Year
+            </th>
+            <th>
+                Make
+            </th>
+            <th>
+                Model
+            </th>
+            <th>
+                Count
+            </th>
+            <th>
+                Stock Value
+            </th>
+        </tr>
+    </thead>
+    <tbody id="newResults">
+    </tbody>
+</table>
+
+<h4>Used Vehicles</h4>
+
+<table class="table table-striped col-md-4">
+    <thead>
+        <tr>
+            <th>
+                Year
+            </th>
+            <th>
+                Make
+            </th>
+            <th>
+                Model
+            </th>
+            <th>
+                Count
+            </th>
+            <th>
+                Stock Value
+            </th>
+        </tr>
+    </thead>
+    <tbody id="usedResults">
+    </tbody>
+</table>
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            InventoryNew();
+            InventoryUsed();
+
+        });
+
+        function InventoryNew() {
+
+            $.ajax({
+                type: 'GET',
+                url: 'https://localhost:44375/api/Reports/Inventory/1',
+                success: function (results) {
+                    //clear the search results
+                    $('#newResults').empty();
+                    //add search results
+                    $.each(results, function (index, model) {
+                        var row = '<tr>';
+                        row += '<td>' + model.Year + '</td>';
+                        row += '<td>' + model.MakeName + '</td>';
+                        row += '<td>' + model.ModelName + '</td>';
+                        row += '<td>' + model.Count + '</td>';
+                        row += '<td>$' + Intl.NumberFormat('en-US').format(model.StockValue) + '</td>';
+                        row += '</tr>';
+                        $('#newResults').append(row);
+                    });
+                },
+                error: function () {
+                    alert("Error performing search, try again later");
+                }
+            });
+        }
+
+                function InventoryUsed() {
+
+            $.ajax({
+                type: 'GET',
+                url: 'https://localhost:44375/api/Reports/Inventory/2',
+                success: function (results) {
+                    //clear the search results
+                    $('#usedResults').empty();
+                    //add search results
+                    $.each(results, function (index, model) {
+                        var row = '<tr>';
+                        row += '<td>' + model.Year + '</td>';
+                        row += '<td>' + model.MakeName + '</td>';
+                        row += '<td>' + model.ModelName + '</td>';
+                        row += '<td>' + model.Count + '</td>';
+                        row += '<td>$' + Intl.NumberFormat('en-US').format(model.StockValue) + '</td>';
+                        row += '</tr>';
+                        $('#usedResults').append(row);
+                    });
+                },
+                error: function () {
+                    alert("Error performing search, try again later");
+                }
+            });
+        }
+
+    </script>
+}

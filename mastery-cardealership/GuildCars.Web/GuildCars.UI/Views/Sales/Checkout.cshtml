@@ -1,0 +1,66 @@
+﻿@using GuildCars.Models.Tables;
+@{
+    ViewBag.Title = "Checkout";
+}
+
+<style>
+    .Paypal{
+        margin-right:30px;
+    }
+</style>
+
+<hr />
+<h2>Check Out</h2>
+
+@{
+    Purchase purchase = Session["purchase"] as Purchase;
+    var VIN = Session["VIN"].ToString();
+    if (purchase != null)
+    {
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>
+                        Client Name
+                    </th>
+                    <th>
+                        VIN Number
+                    </th>
+                    <th>
+                        Purchase Price
+                    </th>
+                    <th>
+                        Tax Rate
+                    </th>
+
+                    <th>
+                        Total
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>@(String.Format("{0:N0}", purchase.Name))</td>
+                    <td>@(String.Format("{0:N0}", VIN))</td>
+                    <td>$@(String.Format("{0:N0}", purchase.PurchasePrice))</td>
+                    <td>3.2%</td>
+                    <td>
+                        $@(String.Format("{0:N0}", purchase.PurchasePrice + (purchase.PurchasePrice * 0.032M)))
+                    </td>
+                </tr>
+        </table>
+
+
+        @Html.ActionLink("Back To Sales", "Index", "Sales", null, new { @class = "Paypal btn btn-outline-success" })
+        @Html.ActionLink("CheckOut With Paypal", "PaymentWithPaypal", "Sales", null, new { @class = "Paypal btn btn-outline-success"})
+
+
+
+    }
+
+    else
+    {
+        <h4> No items in your cart!!!</h4>
+    }
+}

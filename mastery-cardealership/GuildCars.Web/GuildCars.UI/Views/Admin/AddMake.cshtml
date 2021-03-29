@@ -1,0 +1,105 @@
+﻿@model GuildCars.Models.Tables.Make
+@{
+    ViewBag.Title = "AddMake";
+}
+
+<script src="~/Scripts/jquery-3.4.1.js"></script>
+<script src="~/Scripts/bootstrap.js"></script>
+
+<hr />
+<h2>Makes</h2>
+
+@Html.ValidationSummary(false, "", new { @class = "text-danger" })
+@using (Html.BeginForm("AddMake", "Admin", FormMethod.Post, new { enctype = "multipart/form-data", id = "addMake" }))
+{
+    @Html.Hidden("ID", Model.ID)
+    <div class="form-inline" style="margin-bottom: 10px">
+        <label class="">New Make&nbsp;&nbsp;&nbsp;</label>
+        @Html.TextBoxFor(m => m.MakeName)
+        <input type="submit" value="Save" onclick="formValid()" class="btn btn-success" style="margin-left:10px; padding-top:6px; padding-bottom:6px" />
+    </div>
+
+
+}
+
+<table class="table table-striped col-md-6">
+    <thead>
+        <tr>
+            <th>
+                Make
+            </th>
+            <th>
+                Date Added
+            </th>
+            <th>
+                User
+            </th>
+        </tr>
+    </thead>
+    <tbody id="makeResults">
+    </tbody>
+</table>
+
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            GetMakes();
+            formValidate();
+            $('#addMake').submit(function (e) {
+                GetMakes();
+            });
+
+
+
+        }
+
+        );
+
+        function GetMakes() {
+            $.ajax({
+                type: 'GET',
+                url: 'https://localhost:44375/api/admin/makes',
+                success: function (results) {
+                    //clear the search results
+                    $('#makeResults').empty();
+                    //add search results
+                    $.each(results, function (index, make) {
+                        var row = '<tr>';
+                        row += '<td>' + make.MakeName + '</td>';
+                        row += '<td id="CreatedDate">' + dateFormat(make.CreatedDate) + '</td>';
+                        row += '<td>' + make.Email + '</td>';
+                        row += '</tr>';
+                        $('#makeResults').append(row);
+                    });
+                },
+                error: function () {
+                    alert("Error performing search, try again later");
+                }
+            });
+        }
+
+        function formValid() {
+            if ($('#addMake').valid()) {
+                alert("Make committed succesfully!");
+            }
+        }
+
+        function formValidate() {
+            $('#addMake').validate({
+                rules: {
+                    'MakeName': {
+                        required: true
+                    }
+                }
+            });
+        }
+
+        function dateFormat(date) {
+            var createdDate = new Date(Date.parse(date));
+            var newDate = (createdDate.getMonth()) + 1 + '/' + createdDate.getDate() + '/' + createdDate.getFullYear();
+            return newDate;
+        }
+    </script>
+
+}

@@ -1,0 +1,5 @@
+C:\Users\spitu\Repos\TSG_DotNet\online-net-spitum\Summatives\mastery-cardealership\GuildCars.Web\GuildCars.Models\bin\Debug\GuildCars.Models.dll
+C:\Users\spitu\Repos\TSG_DotNet\online-net-spitum\Summatives\mastery-cardealership\GuildCars.Web\GuildCars.Models\bin\Debug\GuildCars.Models.pdb
+C:\Users\spitu\Repos\TSG_DotNet\online-net-spitum\Summatives\mastery-cardealership\GuildCars.Web\GuildCars.Models\obj\Debug\GuildCars.Models.dll
+C:\Users\spitu\Repos\TSG_DotNet\online-net-spitum\Summatives\mastery-cardealership\GuildCars.Web\GuildCars.Models\obj\Debug\GuildCars.Models.pdb
+C:\Users\spitu\Repos\TSG_DotNet\online-net-spitum\Summatives\mastery-cardealership\GuildCars.Web\GuildCars.Models\obj\Debug\GuildCars.Models.csprojAssemblyReference.cache

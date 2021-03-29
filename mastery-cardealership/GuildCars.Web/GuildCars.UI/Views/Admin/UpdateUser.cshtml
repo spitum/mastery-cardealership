@@ -1,0 +1,51 @@
+﻿@model GuildCars.UI.Models.UpdateUserViewModel
+@{
+    ViewBag.Title = "UpdateUser";
+}
+
+<h2>Edit User</h2>
+
+@using (Html.BeginForm("UpdateUser", "Admin", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary("", new { @class = "text-danger" })
+    @Html.HiddenFor(m => m.User.Id)
+    <div class="form-row">
+        <div class="form-group col-md-4">
+            <label>First Name</label>
+            @Html.TextBoxFor(m => m.User.FirstName, new { @class = "form-control" })
+        </div>
+
+        <div class="form-group col-md-4">
+            <label>Last Name</label>
+            @Html.TextBoxFor(m => m.User.LastName, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-4">
+            <label>Email</label>
+            @Html.TextBoxFor(m => m.User.Email, new { @class = "form-control" })
+        </div>
+        <div class="form-group col-md-4" style="padding-top:10px;">
+            <div><label>Role</label></div>
+            @Html.DropDownListFor(m => m.Role, (SelectList)ViewBag.Name)
+            @*@Html.DropDownList("Roles", (SelectList)ViewBag.Name, " ")*@
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-4">
+            <label>Password</label>
+            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+        </div>
+        <div class="form-group col-md-4">
+            <label>Confirm Password</label>
+            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group row">
+        <div id="submitButton" class="col-md-2" style="padding-left:10px;">
+            <input type="submit" value="Save" class="btn btn-outline-primary" />
+        </div>
+    </div>
+}
+

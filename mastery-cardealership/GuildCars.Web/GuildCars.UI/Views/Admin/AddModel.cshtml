@@ -1,0 +1,105 @@
+﻿@model GuildCars.Models.Tables.Model
+@{
+    ViewBag.Title = "AddModel";
+}
+
+<script src="~/Scripts/jquery-3.4.1.js"></script>
+<script src="~/Scripts/bootstrap.js"></script>
+
+<hr />
+<h2>Models</h2>
+
+@Html.ValidationSummary(false, "", new { @class = "text-danger" })
+@using (Html.BeginForm("AddModel", "Admin", FormMethod.Post, new { enctype = "multipart/form-data", id = "addModel" }))
+{
+    @Html.HiddenFor(m => m.ID)
+    <div class="form-inline" style="margin-bottom: 10px">
+        <label>New Model&nbsp;&nbsp;&nbsp;</label>
+        @Html.TextBoxFor(m => m.ModelName, new { @class = "form-control" })
+        <label>&nbsp;&nbsp;&nbsp;Make&nbsp;&nbsp;&nbsp;</label>
+        @Html.DropDownList("MakeID", (SelectList)ViewBag.Name, new { @class = "form-control", @id = "makeselect" })
+        <input type="submit" value="Save" onclick="formValid()" class="btn btn-success" style="margin-left:10px; padding-top:6px; padding-bottom:6px" />
+    </div>
+}
+
+<table class="table table-striped col-md-6">
+        <thead>
+            <tr>
+                <th>
+                    Make
+                </th>
+                <th>
+                    Model
+                </th>
+                <th>
+                    Date Added
+                </th>
+                <th>
+                    User
+                </th>
+            </tr>
+        </thead>
+        <tbody id="modelResults">
+        </tbody>
+    </table>
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            GetModels();
+            formValidate();
+            $('#addModel').submit(function (e) {
+                GetModels();
+            });
+        }
+
+        );
+
+        function GetModels() {
+            $.ajax({
+                type: 'GET',
+                url: 'https://localhost:44375/api/admin/models',
+                success: function (results) {
+                    //clear the search results
+                    $('#modelResults').empty();
+                    //add search results
+                    $.each(results, function (index, model) {
+                        var row = '<tr>';
+                        row += '<td>' + model.MakeName + '</td>';
+                        row += '<td>' + model.ModelName + '</td>';
+                        row += '<td id="CreatedDate">' + dateFormat(model.CreatedDate) + '</td>';
+                        row += '<td>' + model.Email + '</td>';
+                        row += '</tr>';
+                        $('#modelResults').append(row);
+                    });
+                },
+                error: function () {
+                    alert("Error performing search, try again later");
+                }
+            });
+        }
+
+        function formValid() {
+            if ($('#addModel').valid()) {
+                alert("Make committed succesfully!");
+            }
+        }
+
+        function formValidate() {
+            $('#addModel').validate({
+                rules: {
+                    'ModelName': {
+                        required: true
+                    }
+                }
+            });
+        }
+
+        function dateFormat(date) {
+            var createdDate = new Date(Date.parse(date));
+            var newDate = (createdDate.getMonth()) + 1 + '/' + createdDate.getDate() + '/' + createdDate.getFullYear();
+            return newDate;
+        }
+    </script>
+
+}

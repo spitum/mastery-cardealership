@@ -1,0 +1,84 @@
+﻿@model IEnumerable<GuildCars.Models.Queries.SalesReport>
+@{
+    ViewBag.Title = "Sales";
+}
+
+<h2 style="margin-top:10px;">Sales Report</h2>
+
+
+<div class="row" style="margin-bottom: 10px">
+    <div class="col-xs-12 container">
+        <label for="">Filters</label>
+        <form id="searchForm" class="form-inline">
+            <div class="input-group">
+                <label for="Users" style="padding-right:5px; padding-left:5px;">Users</label>
+                @Html.DropDownList("User", (SelectList)ViewBag.Name, "-All-", new { @class = "form-control" })
+            </div>
+            <div class="input-group">
+                <label style="padding-right:5px; padding-left:15px;">From Date</label>
+                <input type="date" class="form-control col-4" id="fromDate" placeholder="No Min">
+                <label style="padding-right:5px; padding-left:15px;">To Date</label>
+                <input type="date" class="form-control col-4" id="toDate" placeholder="No Max">
+            </div>
+            <button type="submit" onclick="search()" class="btn btn-success">Search</button>
+        </form>
+    </div>
+</div>
+
+<table class="table table-striped col-md-4">
+    <thead>
+        <tr>
+            <th>
+                User
+            </th>
+            <th>
+                Total Sales
+            </th>
+            <th>
+                Total Vehicles
+            </th>
+        </tr>
+    </thead>
+    <tbody id="salesResults">
+    </tbody>
+</table>
+
+@section Scripts{
+    <script>
+            $(document).ready(function () {
+            $('#searchForm').submit(function (e) {
+                search();
+                return false;
+            });
+
+
+        });
+
+        function search() {
+            var params;
+
+            params = 'user=' + $('#User').val() + '&fromDate=' + $('#fromDate').val() + '&toDate=' + $('#toDate').val() ;
+            $.ajax({
+                type: 'GET',
+                url: 'https://localhost:44375/api/Reports/Sales?' + params,
+                success: function (results) {
+                    //clear the search results
+                    $('#salesResults').empty();
+                    //add search results
+                    $.each(results, function (index, model) {
+                        var row = '<tr>';
+                        row += '<td>' + model.UserName + '</td>';
+                        row += '<td>$' + Intl.NumberFormat('en-US').format(model.TotalSales) + '</td>';
+                        row += '<td>' + model.TotalVehicles + '</td>';
+                        row += '</tr>';
+                        $('#salesResults').append(row);
+                    });
+                },
+                error: function () {
+                    alert("Error performing search, try again later");
+                }
+            });
+        }
+
+    </script>
+}

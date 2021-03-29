@@ -1,0 +1,39 @@
+﻿@model GuildCars.Models.Queries.VehicleItem
+
+@{
+    ViewBag.Title = "Vehicle Details";
+}
+
+<h2 style="margin-top:10px">Vehicle Details</h2>
+<div class="container">
+    <div class="row item">
+        <div class="column item-image">
+            <span class="recentListing"><strong>@Model.Year @Model.MakeName @Model.ModelName </strong></span>
+            <p class="recentListing"><img style="width:166px;height:110px;" src="@Url.Content("~/Images/" + Model.ImageFileName)" /></p>
+
+        </div>
+        <div class="column item-text">
+            <p class="item-description">Body Style: @Model.BodyStyleName </p>
+            <p class="item-description">Trans: @Model.TransmissionName </p>
+            <p class="item-description">Color: @Model.ColorName</p>
+        </div>
+        <div class="column item-text">
+            <p class="item-description">Interior:  @Model.InteriorColorName</p>
+            <p class="item-description">Mileage: @Model.Mileage</p>
+            <p class="item-description">VIN #: @Model.VINNumber </p>
+
+        </div>
+        <div class="column item-text">
+            <p class="item-description money">Sale Price:  @Model.SalePrice.Value.ToString("c") </p>
+            <p class="item-description money">MSRP:  @Model.MSRP.Value.ToString("c")</p>
+        </div>
+        <div class="row item-text">
+            <div class="row-cols-2">
+                <p class="item-description-text"><strong>Description:</strong> @Model.Description  </p>
+            </div>
+            <p class="contact-us"><a class="detail-link" href="@Url.Action("AddContact", "Contacts",new { VINNumber = @Model.VINNumber })">Contact Us</a></p>
+        </div>
+
+
+    </div>
+</div>
