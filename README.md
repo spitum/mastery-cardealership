@@ -17,5 +17,5 @@ Within GuildCars.UI project - update connection string to point to database wher
 
 
 **For Paypal setup:**
-> Within GuildCar.UI/webconfig.cs - Add values for paypal/settings/clientid and paypal/settings/clientSecret 
+> Within GuildCar.UI/webconfig.cs - Add values for paypal/settings/clientid and paypal/settings/clientSecret keys
 
