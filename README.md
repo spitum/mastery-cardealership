@@ -8,7 +8,7 @@ Car Dealership website with user role based authentication. Paypal & Google Reca
 > Wireframes: https://github.com/spitum/mastery-cardealership/blob/main/Car-Dealership-Wireframes.pdf
 
 # Setup 
-Run scripts in DBScripts in following order: database > tables > sprocs > DBReset
+Run scripts in DBScripts in following order: database > tables > sprocs > DBReset in SSMS.
 
 Within GuildCars.UI project - update connection string to point to database where above DBScripts were run. 
 
